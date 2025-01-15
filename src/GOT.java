@@ -59,7 +59,7 @@ public class GOT {
                         deleteCharacter(scanner);
                         break;
                     case "5":
-                        viewCharacter(scanner);
+                        viewCharacters();
                         break;
                     case "6":
                         addProduct(scanner);
@@ -161,19 +161,66 @@ public class GOT {
         }
     }
 
-    private void viewCharacter(Scanner scanner) {
+    private void viewCharacters() {
+        System.out.println("Here are the Characters");
+        List<Character> characters = controller.getAllCharacters();
+        for (Character character: characters){
+            System.out.println(character.toString());
+        }
     }
 
     private void deleteCharacter(Scanner scanner) {
+        System.out.println("Id of the Character you want to delete:");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        if(controller.deleteCharacter(id)){
+            System.out.println("Character deleted successfully.");
+        }
+        else {
+            System.out.println("Character could not be deleted.");
+        }
     }
 
     private void updateCharacter(Scanner scanner) {
+        System.out.println("Enter the id of the Character you want to update:");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter new name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter new origin:");
+        String origin = scanner.nextLine();
+        Character character = controller.updateCharacter(id,name,origin);
+        if(character != null){
+            System.out.println("Character updated successfully.");
+
+        }
+        else {
+            System.out.println("Character not found.");
+        }
+
     }
 
     private void searchCharacter(Scanner scanner) {
+        System.out.println("Enter Character ID:");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        Character character = controller.getCharacter(id);
+        System.out.println(character.toString());
+
     }
 
     private void addCharacter(Scanner scanner) {
+        System.out.println("Enter Character ID:");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter Character Name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter Character Origin:");
+        String origin = scanner.nextLine();
+        Character character = new Character(id, name, origin);
+        character = controller.addCharacter(character);
+        if(character!= null) {
+            System.out.println("Character added successfully.");
+        }
+        else {
+            System.out.println("Character could not be added.");
+        }
     }
 
     public static void main(String[] args) {
@@ -208,11 +255,17 @@ public class GOT {
         productRepository.create(product5);
         productRepository.create(product6);
 
-        Character character1 = new Character(1,"Dio", "Lava Pond", list1);
-        Character character2 = new Character(2,"Diana", "Lava Pond", list2);
-        Character character3 = new Character(3,"John", "Icy Slopes", list3);
-        Character character4 = new Character(4,"Daeneris", "Dragon Lair", list2);
-        Character character5 = new Character(5,"Drakel", "Dragon Lair", list1);
+        Character character1 = new Character(1,"Dio", "Lava Pond");
+        Character character2 = new Character(2,"Diana", "Lava Pond");
+        Character character3 = new Character(3,"John", "Icy Slopes");
+        Character character4 = new Character(4,"Daeneris", "Dragon Lair");
+        Character character5 = new Character(5,"Drakel", "Dragon Lair");
+
+        character1.setProducts(list1);
+        character2.setProducts(list2);
+        character3.setProducts(list3);
+        character4.setProducts(list2);
+        character5.setProducts(list1);
 
         characterRepository.create(character1);
         characterRepository.create(character2);

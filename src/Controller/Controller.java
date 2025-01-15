@@ -60,4 +60,48 @@ public class Controller {
         return productRepository.getAll();
     }
 
+    public Character addCharacter(Character character) {
+        Integer id = character.getID();
+        if (characterRepository.get(id) != null) {
+            return null;
+        } else {
+            characterRepository.create(character);
+            return character;
+        }
+    }
+
+    public List<Character> getAllCharacters() {
+        return characterRepository.getAll();
+    }
+
+    public Character getCharacter(Integer id) {
+        try {
+            Character character = characterRepository.get(id);
+            if (character != null) {
+                return character;
+            } else throw new EntityNotFoundException("Client not found");
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Character updateCharacter(Integer id, String name, String origin) {
+        Character character = characterRepository.get(id);
+        if (character != null) {
+            character.setName(name);
+            character.setOrigin(origin);
+            characterRepository.update(character);
+            return character;
+        }
+        else return null;
+    }
+
+    public boolean deleteCharacter(Integer id) {
+        if (characterRepository.get(0) != null) {
+            characterRepository.delete(id);
+            return true;
+        }
+        else return false;
+    }
 }
