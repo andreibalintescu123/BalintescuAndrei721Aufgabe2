@@ -5,6 +5,7 @@ import Controller.Controller;
 import Repository.Repository;
 import Repository.InMemoryRepository;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -99,9 +100,18 @@ public class GOT {
     }
 
     private void charactersThatBoughtFromRegion(Scanner scanner) {
+        System.out.println("Enter region of products:");
+        String region = scanner.nextLine();
+        List<Character> characters = controller.charactersThatBoughtFromRegion(region);
     }
 
     private void filterCharacters(Scanner scanner) {
+        System.out.println("Enter origin");
+        String origin = scanner.nextLine();
+        List<Character> filteredCharacters = controller.filterCharacters(origin);
+        for (Character character : filteredCharacters) {
+            System.out.println(character.toString());
+        }
     }
 
     private void viewProducts(Scanner scanner) {

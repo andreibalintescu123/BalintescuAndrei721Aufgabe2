@@ -104,4 +104,8 @@ public class Controller {
         }
         else return false;
     }
+
+    public List<Character> filterCharacters(String origin) {
+        return characterRepository.getAll().stream().filter(character -> character.getOrigin().equals(origin)).toList();
+    }
 }
