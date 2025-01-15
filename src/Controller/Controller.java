@@ -5,6 +5,7 @@ import Model.EntityNotFoundException;
 import Model.Product;
 import Repository.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -107,5 +108,19 @@ public class Controller {
 
     public List<Character> filterCharacters(String origin) {
         return characterRepository.getAll().stream().filter(character -> character.getOrigin().equals(origin)).toList();
+    }
+
+    public List<Character> charactersThatBoughtFromRegion(String region) {
+        List<Character> characters = characterRepository.getAll();
+        List<Character> filteredCharacters = new ArrayList<>();
+        for (Character character : characters) {
+            for (Product product : character.getProducts()) {
+                if (product.getRegion().equals(region)) {
+                    filteredCharacters.add(character);
+                    break;
+                }
+            }
+        }
+        return filteredCharacters;
     }
 }

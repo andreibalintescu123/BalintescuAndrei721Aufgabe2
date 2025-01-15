@@ -97,16 +97,27 @@ public class GOT {
     }
 
     private void sortProductPricesOfCharacter(Scanner scanner) {
+        System.out.println("Enter the Character ID:");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        System.out.println("For the sort choose asc or desc:");
+        String order = scanner.nextLine();
+        List<Product> sortedProducts = controller.sortCharacterProducts(id,order);
+        for (Product product : sortedProducts){
+            System.out.println(product.toString());
+        }
     }
 
     private void charactersThatBoughtFromRegion(Scanner scanner) {
         System.out.println("Enter region of products:");
         String region = scanner.nextLine();
         List<Character> characters = controller.charactersThatBoughtFromRegion(region);
+        for (Character character : characters) {
+            System.out.println(character.toString());
+        }
     }
 
     private void filterCharacters(Scanner scanner) {
-        System.out.println("Enter origin");
+        System.out.println("Enter origin:");
         String origin = scanner.nextLine();
         List<Character> filteredCharacters = controller.filterCharacters(origin);
         for (Character character : filteredCharacters) {
